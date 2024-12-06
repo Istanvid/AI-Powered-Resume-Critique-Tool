@@ -1,0 +1,16 @@
+# resume_critique.py
+
+from transformers import pipeline
+
+keyword_extractor = pipeline("feature-extraction", model="dslim/bert-base-NER")
+
+def analyze_resume(resume, job_description):
+    resume_keywords = set(resume.split())
+    job_keywords = set(job_description.split())
+    missing_keywords = job_keywords - resume_keywords
+    return missing_keywords
+
+resume = "Experienced Python developer skilled in data analysis and machine learning."
+job_description = "Looking for a developer skilled in Python, Django, and DevOps."
+missing = analyze_resume(resume, job_description)
+print(f"Missing keywords: {missing}")
